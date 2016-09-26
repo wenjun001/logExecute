@@ -17,7 +17,6 @@ public class Logcache {
     /**
      *
      * []  IP Address 0  1000
-     * []  CPU 1-2
      * []  minuts of day 60*24=1440
      */
     private int[][]  cacheDataForCPU1 = new int[1000][1441];
