@@ -23,7 +23,7 @@ public class Logcache {
     private int[][]  cacheDataForCPU1 = new int[1000][1441];
     private int[][]  cacheDataForCPU2 = new int[1000][1441];
 
-    private static Logcache instance;
+    private volatile static Logcache instance;
     private static final Object lock = new Object();
 
     private Logcache() {
