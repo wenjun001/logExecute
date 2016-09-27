@@ -26,8 +26,7 @@ public class App
         String path = home+File.separator+"testdata";
         System.out.println("Loading data from Disk({your home}/testdata/) to Memory start:");
         long startLoad = System.currentTimeMillis();
-        Logcache logcache = new Logcache();
-        logcache.loadDataFromDisk(path);
+        Logcache logcache  = Logcache.instance();
         long endtLoad = System.currentTimeMillis();
         System.out.println("Loading data from Disk to Memory end");
         System.out.println("Use "+(endtLoad-startLoad)+" ms to loading data from disk to memory");
