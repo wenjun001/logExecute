@@ -22,9 +22,29 @@ public class Logcache {
     private int[][]  cacheDataForCPU1 = new int[1000][1441];
     private int[][]  cacheDataForCPU2 = new int[1000][1441];
 
+    private static Logcache instance;
+    private static final Object lock = new Object();
+
+    private Logcache() {
+        String home = System.getProperty("user.home");
+        String path = home+File.separator+"testdata";
+        loadDataFromDisk(path);
+    }
 
 
-    public void loadDataFromDisk(String path){
+    public static Logcache instance() {
+        if (instance == null) {
+            synchronized (lock) {
+                if (instance == null) {
+                    instance = new Logcache();
+                }
+            }
+        }
+        return instance;
+    }
+
+
+    private void loadDataFromDisk(String path){
 
         File f2 = new File(path);
         File[] allFiles = f2.listFiles(new FilenameFilter() {
