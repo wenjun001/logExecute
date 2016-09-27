@@ -70,15 +70,10 @@ public class LogGeneretor {
                 }
                 bufferedWriter.flush();
                 fileWriter.close();
-
-
             }
-
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
 
 

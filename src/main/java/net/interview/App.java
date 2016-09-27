@@ -1,6 +1,7 @@
 package net.interview;
 
 
+import net.interview.exception.LogExecuteException;
 import net.interview.tool.LogGeneretor;
 
 import java.io.File;
@@ -45,7 +46,15 @@ public class App
             }
             Query query = new Query();
             long start = System.currentTimeMillis();
-            String result = query.buildResult(queryStr,logcache.getCacheDataForCPU1(),logcache.getCacheDataForCPU2());
+            String result = null;
+            try {
+                result = query.buildResult(queryStr,logcache.getCacheDataForCPU1(),logcache.getCacheDataForCPU2());
+            } catch (LogExecuteException e) {
+                String errorCode = e.getErrorCode();
+                if(errorCode.equals("002")){
+                    System.out.println("please input correct format like:  192.168.1.10 0 2016-09-25 00:01 2016-09-25 23:59");
+                }
+            }
             System.out.println(result);
             long end = System.currentTimeMillis();
             if(!result.startsWith("please")){

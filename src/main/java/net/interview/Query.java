@@ -1,5 +1,6 @@
 package net.interview;
 
+import net.interview.exception.LogExecuteException;
 import net.interview.tool.Util;
 
 import java.text.ParseException;
@@ -11,9 +12,8 @@ import java.util.Date;
  */
 public class Query {
 
-    public String buildResult(String query,int[][] cpu0,int[][] cpu1){
-        String commonError = "please input correct format like:  192.168.1.10 0 2016-09-25 00:01 2016-09-25 23:59";
-        if(query==null || "".equals(query)){return commonError;}
+    public String buildResult(String query,int[][] cpu0,int[][] cpu1) throws LogExecuteException {
+        if(query==null || "".equals(query)){throw  new LogExecuteException("Query Error","002");}
         String ip="";
         int cpu = 0;
         String startStr="";
@@ -32,13 +32,12 @@ public class Query {
              endPoint = Integer.parseInt(end[0]) * 60 + Integer.parseInt(end[1]);
 
         }catch(Exception e){
-            //System.out.println(commonError);
-            return commonError;
+            throw new LogExecuteException("Query Error","002");
 
         }
 
         if(endPoint<startPoint){
-            return commonError;
+            throw new LogExecuteException("Query Error","002");
         }
         long timeStamp =0;
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -53,8 +52,7 @@ public class Query {
              d = s.parse(startStr);
             timeStamp = d.getTime()/1000;
         } catch (ParseException e) {
-            //System.out.println(commonError);
-            return commonError;
+            throw new LogExecuteException("Query Error","002");
         }
 
         int j = 0;

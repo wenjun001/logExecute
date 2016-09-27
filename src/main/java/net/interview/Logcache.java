@@ -1,5 +1,6 @@
 package net.interview;
 
+import net.interview.exception.LogExecuteException;
 import net.interview.tool.Util;
 import sun.rmi.runtime.Log;
 
@@ -28,7 +29,11 @@ public class Logcache {
     private Logcache() {
         String home = System.getProperty("user.home");
         String path = home+File.separator+"testdata";
-        loadDataFromDisk(path);
+        try {
+            loadDataFromDisk(path);
+        } catch (LogExecuteException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -44,7 +49,7 @@ public class Logcache {
     }
 
 
-    private void loadDataFromDisk(String path){
+    private void loadDataFromDisk(String path) throws LogExecuteException {
 
         File f2 = new File(path);
         File[] allFiles = f2.listFiles(new FilenameFilter() {
@@ -78,7 +83,7 @@ public class Logcache {
                     i++;
                 }
             }catch (Exception e){
-                e.printStackTrace();
+                throw new LogExecuteException("Loading data erro","001");
             }
 
         }
